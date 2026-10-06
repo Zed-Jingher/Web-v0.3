@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10111b">
+    <title>Jeff Topup — Game top-up marketplace</title>
+    <meta name="description" content="Browse available game-credit packages. Payment and game delivery activate only after authorized providers are configured.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#" aria-label="Jeff Topup home">
+          <span class="brand-mark">J</span>
+          <span>Jeff<span class="brand-light"> Topup</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#games">Top up</a>
+          <a class="nav-link" href="#accounts">Game accounts</a>
+          <button class="nav-link button-link" type="button" data-action="rewards">Rewards</button>
+        </nav>
+        <div class="header-actions">
+          <button class="environment-badge" type="button" id="environmentBadge" data-action="feature-status" aria-label="View application feature statuses"><span class="environment-dot"></span><span id="environmentLabel">DEMO</span></button>
+          <button class="icon-button search-toggle" type="button" aria-label="Focus game search" data-action="focus-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+          </button>
+          <button class="orders-button" type="button" data-action="orders">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v17l-7-4-7 4z"></path><path d="M9 8h6M9 12h6"></path></svg>
+            <span>Orders</span>
+            <span class="order-count" id="orderCount">0</span>
+          </button>
+          <button class="login-button" type="button" data-action="login">Sign in</button>
+          <button class="menu-toggle" type="button" aria-label="Open menu" data-action="menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero page-width">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR NEXT LEVEL STARTS HERE</div>
+          <h1>Power up.<br><span>Play on.</span></h1>
+          <p>Browse available games and package prices. Payment and game delivery activate only after authorized providers are configured.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#games">Explore games <span aria-hidden="true">↗</span></a>
+            <div class="delivery-note"><span class="delivery-icon">✦</span><span><strong>Provider status</strong><small>Payment and delivery unavailable</small></span></div>
+          </div>
+          <div class="hero-trust">
+            <span><i class="checkmark">✓</i> Database-backed catalog</span>
+            <span><i class="checkmark">✓</i> Account-based order history</span>
+            <span><i class="checkmark">✓</i> No charge without providers</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Featured game top-up">
+          <div class="art-orbit orbit-one"></div>
+          <div class="art-orbit orbit-two"></div>
+          <div class="hero-spark spark-one">✦</div>
+          <div class="hero-spark spark-two">✧</div>
+          <div class="hero-feature-art" id="heroArtwork"></div>
+          <div class="art-caption">
+            <span class="live-indicator"></span>
+            <span><strong>Browse available games</strong><small>Packages and regions</small></span>
+            <span class="caption-arrow">↗</span>
+          </div>
+          <div class="floating-chip chip-top"><span>✦</span> Game catalog</div>
+          <div class="floating-chip chip-bottom"><span class="mini-check">✓</span> Provider status</div>
+        </div>
+      </section>
+
+      <section class="stats-strip page-width" aria-label="Store benefits">
+        <div class="stat-item"><span class="stat-icon">↯</span><span><strong>Game catalog</strong><small>Database-backed in production</small></span></div>
+        <div class="stat-item"><span class="stat-icon">◇</span><span><strong>Payment providers</strong><small>Not configured</small></span></div>
+        <div class="stat-item"><span class="stat-icon">◎</span><span><strong>Player validation</strong><small>Required before payment</small></span></div>
+        <div class="stat-item stat-note"><span class="status-dot"></span><span><strong>Checkout status</strong><small>Disabled until integrations are ready</small></span></div>
+      </section>
+
+      <section class="games-section page-width" id="games">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">PICK YOUR GAME</div>
+            <h2>What are we topping up?</h2>
+            <p>Choose a game to see available credits and passes.</p>
+          </div>
+          <div class="game-tools">
+            <label class="search-field" for="gameSearch">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+              <input id="gameSearch" type="search" placeholder="Search games" autocomplete="off">
+              <kbd>/</kbd>
+            </label>
+            <button class="view-all-button" type="button" data-action="show-all">View all <span>→</span></button>
+          </div>
+        </div>
+        <div class="category-row" role="group" aria-label="Filter games">
+          <button class="category-chip selected" type="button" data-category="All">All games <span>8</span></button>
+          <button class="category-chip" type="button" data-category="Battle royale">Battle royale</button>
+          <button class="category-chip" type="button" data-category="MOBA">MOBA</button>
+          <button class="category-chip" type="button" data-category="RPG">RPG</button>
+          <label class="game-select-wrap" for="gameSelector">
+            <span>Game</span>
+            <select id="gameSelector" aria-label="Select a game">
+              <option value="All">All Games</option>
+              <option value="mobile-legends">Mobile Legends</option>
+              <option value="free-fire">Free Fire</option>
+              <option value="pubg-mobile">PUBG Mobile</option>
+              <option value="honor-of-kings">Honor of Kings</option>
+              <option value="genshin-impact">Genshin Impact</option>
+              <option value="roblox">Roblox</option>
+              <option value="Other Games">Other Games</option>
+              <option value="blood-strike">Blood Strike</option>
+              <option value="valorant">Valorant</option>
+            </select>
+          </label>
+        </div>
+        <div class="game-grid" id="gameGrid" aria-live="polite"></div>
+        <p class="empty-state hidden" id="emptyGames">No games match your search. Try another title.</p>
+      </section>
+
+      <section class="topup-section page-width hidden" id="topupSection">
+        <div class="topup-header">
+          <div>
+            <button class="back-link" type="button" data-action="back-games">← All games</button>
+            <div class="eyebrow">QUICK TOP-UP</div>
+            <div class="topup-title-row"><span class="topup-game-logo" id="topupGameLogo"></span><div>
+            <h2 id="topupTitle">Top up your game</h2>
+            <p id="topupDescription">Enter your player details and choose a package to continue.</p>
+            </div></div>
+          </div>
+          <div class="secure-pill"><span>◇</span> Demo order</div>
+        </div>
+        <section class="product-gallery" aria-label="Game asset gallery">
+          <div class="gallery-main" id="galleryMain"></div>
+          <div class="gallery-thumbnails" id="galleryThumbnails" aria-label="Game images"></div>
+        </section>
+        <div class="topup-layout">
+          <div class="topup-main">
+            <div class="flow-step">
+              <div class="step-heading"><span class="step-number">1</span><div><h3>Enter player details</h3><p>Make sure these details match your in-game profile.</p></div></div>
+              <div class="player-fields">
+                <label class="field-label hidden" id="regionField" for="playerRegion">Server / Region <span class="required">*</span>
+                  <select id="playerRegion" name="playerRegion"><option value="">Select a region</option><option value="Cambodia">Cambodia</option><option value="Asia">Asia</option><option value="Global">Global</option><option value="Other">Other</option></select>
+                </label>
+                <label class="field-label" for="playerId">Player ID <span class="required">*</span><input id="playerId" name="playerId" placeholder="Enter your player ID" autocomplete="off"></label>
+                <label class="field-label hidden" id="serverField" for="serverId">Server ID <span class="required">*</span><input id="serverId" name="serverId" placeholder="e.g. 1234" autocomplete="off"></label>
+                <label class="field-label" for="playerNickname">Nickname <small class="optional-label">Optional · checked by demo verifier</small><input id="playerNickname" name="playerNickname" placeholder="In-game nickname" autocomplete="off"></label>
+              </div>
+              <div class="player-actions">
+                <button class="outline-button verify-button" type="button" data-action="verify-player">Verify player</button>
+                <button class="text-button" type="button" data-action="saved-players">My accounts</button>
+              </div>
+              <div class="verification-status hidden" id="verificationStatus" role="status" aria-live="polite"></div>
+              <p class="field-hint"><span>ⓘ</span> Demo verification only. No game account provider is connected.</p>
+            </div>
+            <div class="flow-step">
+              <div class="step-heading"><span class="step-number">2</span><div><h3>Choose a package</h3><p>Select the amount you want to receive.</p></div></div>
+              <div class="package-grid" id="packageGrid"></div>
+            </div>
+            <div class="form-error hidden" id="topupError" role="alert"></div>
+            <button class="primary-button continue-button" type="button" data-action="checkout">Continue to payment <span>→</span></button>
+          </div>
+          <aside class="order-summary">
+            <div class="summary-label">YOUR SELECTION</div>
+            <div class="summary-game"><span class="summary-game-icon" id="summaryIcon">✦</span><span><strong id="summaryGameName">Choose a game</strong><small>Simulated top-up</small></span></div>
+            <div class="summary-line"><span>Package</span><strong id="summaryPackage">Select a package</strong></div>
+            <div class="summary-line"><span>Player ID</span><strong class="summary-player" id="summaryPlayer">Not entered</strong></div>
+            <div class="summary-rule"></div>
+            <div class="summary-line"><span>Subtotal</span><strong id="summarySubtotal">$0.00</strong></div>
+            <div class="summary-line"><span>Discount</span><strong id="summaryDiscount">$0.00</strong></div>
+            <div class="summary-line"><span>Platform fee</span><strong id="summaryFee">$0.00</strong></div>
+            <div class="summary-line total-line"><span>Total</span><strong id="summaryPrice">$0.00</strong></div>
+            <p class="summary-footnote">Pricing settings apply to this local demo. No external charges occur.</p>
+            <div class="summary-security"><span>◇</span><span><strong>Demo payment</strong><small>No payment details are processed.</small></span></div>
+          </aside>
+        </div>
+        <div class="mobile-checkout-bar" id="mobileCheckoutBar">
+          <strong id="mobileCheckoutPrice">$0.00</strong>
+          <button class="primary-button" type="button" data-action="checkout">Continue <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="rewards-banner page-width">
+        <div class="reward-star">✦</div>
+        <div class="reward-copy"><span class="eyebrow">A LITTLE EXTRA FOR YOU</span><h2>Every top-up earns rewards.</h2><p>Collect points with each order and trade them for in-game bonuses.</p></div>
+        <button class="secondary-button" type="button" data-action="rewards">Explore rewards <span>→</span></button>
+        <div class="reward-decoration">✧</div>
+      </section>
+
+      <section class="accounts-section page-width" id="accounts">
+        <div class="section-heading compact-heading">
+          <div><div class="eyebrow">PLAYER MARKET · DEMO</div><h2>Game accounts</h2><p>Browse a sample listing; checkout is not connected to a seller.</p></div>
+          <button class="view-all-button" type="button" data-action="account-market">Browse accounts <span>→</span></button>
+        </div>
+        <article class="account-card">
+          <div class="account-art" id="accountArtwork"></div>
+          <div class="account-info"><div class="account-status"><span class="status-dot"></span> Demo listing</div><h3>Mobile Legends account</h3><p>Global · Unranked · Sample listing, not verified</p></div>
+          <div class="account-price"><small>Listed price</small><strong>$60.00</strong></div>
+          <button class="outline-button" type="button" data-action="account-market">View listing <span>→</span></button>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner page-width">
+        <a class="brand" href="#"><span class="brand-mark">J</span><span>Jeff<span class="brand-light"> Topup</span></span></a>
+        <p>Made for players. Built for peace of mind.</p>
+        <div class="footer-links"><a href="#games">Games</a><button type="button" data-action="orders">Order status</button><button type="button" data-action="wallet">Demo wallet</button><button type="button" data-action="feature-status">Feature status</button><button type="button" data-action="notifications">Notifications</button><button type="button" data-action="support">Support</button><button type="button" data-action="seller-listing">Sell a listing</button><button type="button" data-action="admin-orders">Admin orders</button><button type="button" data-action="admin-images">Admin images</button></div>
+        <small>© 2026 Jeff Topup</small>
+      </div>
+    </footer>
+
+    <div class="modal-backdrop hidden" id="modalBackdrop" role="presentation">
+      <section class="modal-panel" id="modalPanel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" type="button" aria-label="Close dialog" data-action="close-modal">×</button>
+        <div id="modalContent"></div>
+      </section>
+    </div>
+    <div class="toast hidden" id="toast" role="status"></div>
+  </body>
+</html>
